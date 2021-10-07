@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using CMSShopping.Models;
+
 
 namespace CMSShopping.Infrastructure
 {
@@ -13,6 +11,6 @@ namespace CMSShopping.Infrastructure
         {
         }
 
-
+        public DbSet<Page> Pages { get; set; } 
     }
 }

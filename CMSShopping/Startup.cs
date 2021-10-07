@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CMSShopping.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 namespace CMSShopping
 {
@@ -24,6 +26,8 @@ namespace CMSShopping
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddDbContext<CMSShoppingContext>(options => 
+                                                options.UseSqlServer(Configuration.GetConnectionString("CMSShoppingContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +52,11 @@ namespace CMSShopping
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+                    name: "areas",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+            );
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
